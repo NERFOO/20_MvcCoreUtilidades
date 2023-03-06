@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\temp\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
