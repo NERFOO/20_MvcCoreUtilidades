@@ -1,13 +1,12 @@
 ﻿using _20_MvcCoreUtilidades.Models;
-using Microsoft.AspNetCore.Mvc;
 
-namespace _20_MvcCoreUtilidades.Controllers
+namespace _20_MvcCoreUtilidades.Repositories
 {
-    public class CochesController : Controller
+    public class RepositoryCoches
     {
         private List<Coche> Cars;
-        
-        public CochesController()
+
+        public RepositoryCoches()
         {
             this.Cars = new List<Coche>
             {
@@ -30,32 +29,14 @@ namespace _20_MvcCoreUtilidades.Controllers
             };
         }
 
-        public IActionResult Index()
+        public List<Coche> GetCoches()
         {
-            return View();
+            return this.Cars;
         }
 
-        //NECESITAMOS UNA PETICION PARA CADA VISTA ASINCRONA QUE VAMOS A UTILIZAR
-        //LOS METODOS PUEDEN LLAMARSE COMO QUERMOS, ES DECIR, DIFERENTES A LOS NOMBRES DE LAS VISTAS QUE UTILIZAN
-        public IActionResult _CochesPartial()
+        public Coche FindCoche(int id)
         {
-            //SI VAMOS A UTILIZAR UNA VISTA PARCIAL CON AJAX DEVEMOS DEVOLVER PARTIALVIEW
-            //DEBE TENER EL NOMBRE DE LA VISTA PARCIAL Y EL MODEL SI LO NECESITAMOS
-            return PartialView("_CochesPartial", this.Cars);
-        }
-
-
-        //SI ESTAMOS UTIILIZANDO PARTIAL VIEW, SOLAMENTE PODEMOS RECIBIR PRIMITIVOS
-        public IActionResult _DetailsCoches(int idCoche)
-        {
-            Coche car = this.Cars.FirstOrDefault(x => x.IdCoche == idCoche);
-            return PartialView("_DetailsCoches", car);
-        }
-
-        public IActionResult Details(int idCoche)
-        {
-            Coche car = this.Cars.FirstOrDefault(x => x.IdCoche == idCoche);
-            return View(car);
+            return this.Cars.FirstOrDefault(x => x.IdCoche == id);
         }
     }
 }
